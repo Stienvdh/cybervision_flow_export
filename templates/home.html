@@ -1,0 +1,104 @@
+<!-- Template page: offers three sections to visualize a 3 steps workflow.-->
+
+{% extends "masterPage.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-1">
+
+    </div>
+        <div class="col-10">
+            <div class="section">
+                <div class="panel panel--loose panel--raised base-margin-bottom" style="padding: 50px;">
+
+                    <!-- Filter form -->
+                    <form action="/" method="post">
+
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- Since date/time -->
+                                <div class="form-group base-margin-bottom">
+                                    <div class="form-group__text">
+                                        <input id="from-date" name="from-date" type="date" value="{{filter.fromdate}}">
+                                        <label for="from-date">Show Traffic Since (default: 1 week ago):</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <!-- Until date/time -->
+                                <div class="form-group base-margin-bottom">
+                                    <div class="form-group__text">
+                                        <input id="to-date" name="to-date" type="date" value="{{filter.todate}}">
+                                        <label for="to-date">Show Traffic Until (default: today):</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="height: 50px;">
+                            <button id="submit-filter" onclick="showLoadingText();" style="margin-top: 20px; float: right;color: white;font-size: large;" class="btn btn--primary" type="submit">Go!</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+</div>
+<div class="row">
+    <div class="col-1">
+
+    </div>
+        <div class="col-10">
+            <div class="section">
+                <div class="panel panel--loose panel--raised base-margin-bottom" style="padding: 50px;">
+
+                    <div class="responsive-table">
+                        <table class="table table--lined table">
+                            <thead>
+                                <tr>
+                                    <th>Source</th>
+                                    <th>Source port</th>
+                                    <th>Traffic direction</th>
+                                    <th>Destination</th>
+                                    <th>Destination port</th>
+                                    <th>Protocol</th>
+                                    <th>First activity</th>
+                                    <th>Last activity</th>
+                                    <th>Tags</th>
+                                    <th>Packets</th>
+                                    <th>Bytes</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% if flows|length > 0 %}
+                                    {% for f in flows %}
+                                    <tr {% if f.dayssince >= deadline and f.dayssince > 0 %} style="background-color:#FFB7B7" {% endif %}>
+                                        <td>{{f.source}}</td>
+                                        <td>{{f.sourceport}}</td>
+                                        <td>{% if f.direction == 'undetermined' %} - {% elif f.direction == 'leftRight' %} -> {% else %} <- {% endif %}</td>
+                                        <td>{{f.dest}}</td>
+                                        <td>{{f.destport}}</td>
+                                        <td>{{f.protocol}}</td>
+                                        <td>{{f.firstseen}}</td>
+                                        <td>{{f.lastseen}}</td>
+                                        <td>{{f.tags}}</td>
+                                        <td>{{f.packets}}</td>
+                                        <td>{{f.bytes}}</td>
+                                        <!-- <td>{% if f.dayssince > 0 %} {{f.dayssince}} days ago {% else %} Today {% endif %}</td> -->
+                                    </tr>
+                                    {% endfor %}
+                                {% endif %}
+                            </tbody>
+                        </table> 
+                    
+                    <div style="height: 50px;">
+                        <a style="float: left;margin-top: 20px;font-size: large;color: white;" href="/csv" class="btn btn--success">Export to CSV</a>
+                        <a href="/flows?page={{ nextpage }}&deadline={{ deadline }}" style="margin-top: 20px; float: right;color: white;font-size: large;" class="btn btn--primary" type="submit">Next ({{nextpage}} of {{ total }})</a>
+                    </div>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%  endblock %}
