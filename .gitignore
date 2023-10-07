@@ -3,3 +3,4 @@ __pycache__/
 .env
 flows.json
 components.json
+flows.csv

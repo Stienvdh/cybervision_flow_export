@@ -80,50 +80,24 @@ def get_all_flows(filter=None):
     flows = requests.get(url, headers=headers, verify=False).json()
 
     # Source/dest filter
-    # result = []
-    # if filter.source_label is not None:
-    #     source_names = get_names(filter.source_label)
-    #     for f in flows:
-    #         if f['left']['label'] in source_names:
-    #             result += [f]
-    # else:
-    #     result = flows
-    # result_result = []
-    # if filter.dest_label is not None:
-    #     dest_names = get_names(filter.dest_label)
-    #     for f in result:
-    #         if f['right']['label'] in dest_names:
-    #             result_result += [f]
-    # else:
-    #     result_result = result
+    result = []
+    if filter.source_ip is not None:
+        for f in flows:
+            if f['left']['label'] in filter.source_ip:
+                result += [f]
+    else:
+        result = flows
+    result_result = []
+    if filter.dest_ip is not None:
+        for f in result:
+            if f['right']['label'] in filter.dest_ip:
+                result_result += [f]
+    else:
+        result_result = result
     
-    # result_after_ips = result_result
-    
-    # # Tags filter
-    # result = []
-    # if filter.tags is not None:
-    #     for f in result_after_ips:
-    #         done = False
-    #         for t in f['tags']:
-    #             if not done and t['label'] in filter.tags:
-    #                 result += [f]
-    #                 done = True
-    # else:
-    #     result = result_after_ips
-    
-    # result_after_tags = result
+    result_after_ips = result_result
 
-    # # Protocols filter
-    # result = []
-    # if filter.protocols is not None:
-    #     for f in result_after_tags:
-    #         if f['protocol'] in filter.protocols or f['protocol'] == '':
-    #             result += [f]
-    #             done = True
-    # else:
-    #     result = result_after_tags
-
-    return flows
+    return result_after_ips
 
 # get components 
 def get_components():

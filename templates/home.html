@@ -36,6 +36,28 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- Since date/time -->
+                                <div class="form-group base-margin-bottom">
+                                    <div class="form-group__text">
+                                        <input id="source-ip" name="source-ip" type="text" value="{{filter.sourceip}}">
+                                        <label for="source-ip">Show Traffic with Source:</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <!-- Until date/time -->
+                                <div class="form-group base-margin-bottom">
+                                    <div class="form-group__text">
+                                        <input id="dest-ip" name="dest-ip" type="text" value="{{filter.destip}}">
+                                        <label for="dest-ip">Show Traffic with Destination:</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div style="height: 50px;">
                             <button id="submit-filter" onclick="showLoadingText();" style="margin-top: 20px; float: right;color: white;font-size: large;" class="btn btn--primary" type="submit">Go!</button>
                         </div>
