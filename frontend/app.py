@@ -28,7 +28,6 @@ from dnacentersdk import api
 # load all environment variables
 load_dotenv()
 
-
 # Global variables
 app = Flask(__name__)
 FILTER = cybervision.Filter()
@@ -114,13 +113,18 @@ def flows():
     flows = getJson('flows.json')
     total = int(math.ceil(len(flows)/FLOWS_PER_PAGE))
     nextpage = page
+    previouspage = page
     flows = flows[start:start+FLOWS_PER_PAGE]
     if len(flows) == FLOWS_PER_PAGE and total>page:
         nextpage = page+1
     else:
         nextpage = 0
+    if page == 0:
+        previouspage = total
+    else: 
+        previouspage = page-1
 
-    return render_template('home.html', filter=FILTER.to_json(), flows=flows, nextpage=nextpage, total=total, deadline=deadline, label_list=getJson('components.json'))
+    return render_template('home.html', filter=FILTER.to_json(), flows=flows, previouspage=previouspage, nextpage=nextpage, total=total, deadline=deadline, label_list=getJson('components.json'))
 
 @app.route('/ip-addresses', methods=["GET", "POST"])
 def ips():
@@ -156,4 +160,4 @@ def make_csv():
             writer.writerow(row)
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=5555, debug=True)
+    app.run(host='0.0.0.0', port=8888, debug=True)
