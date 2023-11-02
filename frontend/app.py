@@ -129,16 +129,21 @@ def get_days_since(unixtime):
 def make_csv():
     with open("flows.csv", "w") as f:
         writer = csv.writer(f, delimiter=';')
-        writer.writerow(["Source", "Destination", "Protocol", "Tags", "Last Seen"])
+        writer.writerow(["Source", "Source IP", "Source Port", "Destination", "Destination IP", "Destination Port", "Protocol", "Tags", "Packets", "Bytes", "First Seen", "Last Seen"])
         for f in getJson('flows.json'):
             row = [
                 f['source'],
-                f['dest'],
+                f['sourceip'],
                 f['sourceport'],
+                f['dest'],
+                f['destip'],
                 f['destport'],
                 f['protocol'],
                 f['tags'],
-                f"{f['dayssince']} days ago",
+                f['packets'],
+                f['bytes'],
+                f['firstseen'],
+                f['lastseen']
             ]
             writer.writerow(row)
 

@@ -62,8 +62,10 @@ def get_flows(filter):
             'firstseen': x[8].strftime('%Y/%m/%d, %H:%M:%S'),
             'lastseen': x[9].strftime('%Y/%m/%d, %H:%M:%S'),
             'tags': x[13],
-            'packets': [10],
+            'packets': x[10],
             'bytes': x[11],
-            'dayssince': int(x[14])
+            'dayssince': int(x[14]),
+            'sourceip': x[3],
+            'destip':x[5]
         } for x in cursor.fetchall()
     ]
