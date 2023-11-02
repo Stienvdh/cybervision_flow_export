@@ -1,12 +1,15 @@
-# GVE DevNet Cybervision Absent Traffic Detector
-This prototype allows to detect OT traffic that was seen previously (in the last day/week/month) by Cisco Cybervision, but not anymore. A user can filter their traffic on (1) its source and destination, based on component tags, (2) flow tags, (3) flow protocol, and (4) to fall within a certain time frame. Next, the user can define which traffic to mark as anomalous, based on how long ago it was seen.
+# Cisco Cyber Vision Flow Exporter
+This prototype allows you to export Cyber Vision flows to an external PostgreSQL database. This way, you can limit the amount of flows to be stored on the Cyber Vision appliance and ensure high performance.
+
+![](frontend/IMAGES/workflow.png)
 
 ## Contacts
 * Stien Vanderhallen
 
 ## Solution Components
-* Cybervision
-* Cybervision REST API
+* Cyber Vision
+* Cyber Vision REST API
+* Docker
 
 ## Installation/Configuration
 

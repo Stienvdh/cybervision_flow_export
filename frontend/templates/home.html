@@ -101,9 +101,11 @@
                             <thead>
                                 <tr>
                                     <th>Source</th>
+                                    <th>Source IP</th>
                                     <th>Source port</th>
                                     <th>Traffic direction</th>
                                     <th>Destination</th>
+                                    <th>Destination IP</th>
                                     <th>Destination port</th>
                                     <th>Protocol</th>
                                     <th>First activity</th>
@@ -118,9 +120,11 @@
                                     {% for f in flows %}
                                     <tr {% if f.dayssince >= deadline and f.dayssince > 0 %} style="background-color:#FFB7B7" {% endif %}>
                                         <td>{{f.source}}</td>
+                                        <td>{{f.sourceip}}</td>
                                         <td>{{f.sourceport}}</td>
                                         <td>{% if f.direction == 'undetermined' %} - {% elif f.direction == 'leftRight' %} -> {% else %} <- {% endif %}</td>
                                         <td>{{f.dest}}</td>
+                                        <td>{{f.destip}}</td>
                                         <td>{{f.destport}}</td>
                                         <td>{{f.protocol}}</td>
                                         <td>{{f.firstseen}}</td>
