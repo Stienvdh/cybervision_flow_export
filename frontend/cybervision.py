@@ -40,7 +40,7 @@ class Filter():
             self.from_date = datetimeobject
 
         if to_date == "" or to_date is None:
-            self.to_date = datetime.datetime.today()
+            self.to_date = datetime.datetime.today() + datetime.timedelta(hours=23)
         else:
             datetimeobject = datetime.datetime.strptime(to_date, "%Y-%m-%d")
             self.to_date = datetimeobject

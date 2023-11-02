@@ -28,26 +28,42 @@ def put_flows(flows):
 def get_flows(filter):
     cursor = conn.cursor()
 
-    query = 'select * from cybervisionflows'
+    query = 'select * from cybervisionflows where '
 
     where_clauses = []
     if filter.source_ip is not None and filter.source_ip != '':
-        where_clauses += [f"where sourceip=\'{filter.source_ip}\'"]
+        where_clauses += [f"sourceip=\'{filter.source_ip}\'"]
     if filter.dest_ip is not None and filter.dest_ip != '':
-        where_clauses += [f"where destinationip=\'{filter.dest_ip}\'"]
+        where_clauses += [f"destinationip=\'{filter.dest_ip}\'"]
     if filter.source_name is not None and filter.source_name != '':
-        where_clauses += [f"where source=\'{filter.source_name}\'"]
+        where_clauses += [f"source=\'{filter.source_name}\'"]
     if filter.dest_name is not None and filter.dest_name != '':
-        where_clauses += [f"where destination=\'{filter.dest_name}\'"]
+        where_clauses += [f"destination=\'{filter.dest_name}\'"]
+    if filter.from_date is not None and filter.from_date != '':
+        where_clauses += [f"lastseen>\'{filter.from_date.strftime('%Y/%m/%d, %H:%M:%S')}\'"]
+    if filter.to_date is not None and filter.to_date != '':
+        where_clauses += [f"lastseen<\'{filter.to_date.strftime('%Y/%m/%d, %H:%M:%S')}\'"]
     
+    query += " and ".join(where_clauses)
+    query += ';'
 
+    print(query)
 
-    cursor.execute('select * from flows')
+    cursor.execute(query)
 
     return [
         {
-            'id': x[0],
-            'from_freq': x[1],
-            'to_freq': x[2]
+            'source': x[1],
+            'sourceport': x[4],
+            'direction': x[7],
+            'dest': x[2],
+            'destport': x[6],
+            'protocol': x[12],
+            'firstseen': x[8].strftime('%Y/%m/%d, %H:%M:%S'),
+            'lastseen': x[9].strftime('%Y/%m/%d, %H:%M:%S'),
+            'tags': x[13],
+            'packets': [10],
+            'bytes': x[11],
+            'dayssince': int(x[14])
         } for x in cursor.fetchall()
     ]

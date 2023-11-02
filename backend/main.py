@@ -10,8 +10,7 @@ def getJson(filepath):
 	return json_content
 
 def main_loop():
-    # flows = cybervision.get_flows_since_yesterday()
-    flows = getJson('flows.json')
+    flows = cybervision.get_flows_since_yesterday()
     database.put_flows(flows)
 
 if __name__ == "__main__":
