@@ -16,7 +16,7 @@ import requests, json, os, datetime
 from dotenv import load_dotenv
 
 class Filter():
-    def __init__(self, source_ip=None, dest_ip=None, from_date=None, to_date=None):
+    def __init__(self, source_name=None, dest_name=None, source_ip=None, dest_ip=None, from_date=None, to_date=None):
         if source_ip == "":
             source_ip = None
         self.source_ip = source_ip
@@ -24,6 +24,14 @@ class Filter():
         if dest_ip == "":
             dest_ip = None
         self.dest_ip = dest_ip
+
+        if source_name == "":
+            source_name = None
+        self.source_name = source_name
+
+        if dest_name == "":
+            dest_name = None
+        self.dest_name = dest_name
 
         if from_date == "" or from_date is None:
             self.from_date = datetime.datetime.today() - datetime.timedelta(days=7)
@@ -37,20 +45,10 @@ class Filter():
             datetimeobject = datetime.datetime.strptime(to_date, "%Y-%m-%d")
             self.to_date = datetimeobject
     
-    def get_query_string(self):
-        query = ""
-        if self.from_date is not None:
-            query += f"&from={self.from_date.strftime('%s')}000"
-        if self.to_date is not None:
-            query += f"&to={self.to_date.strftime('%s')}000"
-        
-        if len(query) == 0:
-            return query
-        else:
-            return query[1:]
-    
     def to_json(self):
         return {
+            "source" : self.source_name if self.source_name is not None else "",
+            "dest" : self.dest_name if self.dest_name is not None else "",
             "sourceip" : self.source_ip if self.source_ip is not None else "",
             "destip" : self.dest_ip if self.dest_ip is not None else "",
             "fromdate" : self.from_date.strftime("%Y-%m-%d") if self.from_date is not None else None,
@@ -59,6 +57,8 @@ class Filter():
     
     def from_json(json_object):
         return Filter(
+            source_name=json_object['source'],
+            dest_name=json_object['dest'],
             source_ip=json_object['sourceip'],
             dest_ip=json_object['destip'],
             from_date=json_object['fromdate'],

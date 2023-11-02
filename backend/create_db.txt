@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS cybervisionflows(
+    id VARCHAR(255) NOT NULL PRIMARY KEY,
+    source VARCHAR(255) NOT NULL,
+    destination VARCHAR(255) NOT NULL,
+    sourceip VARCHAR(255) NOT NULL,
+    sourceport VARCHAR(255) NOT NULL,
+    destinationip VARCHAR(255) NOT NULL,
+    destinationport VARCHAR(255) NOT NULL,
+    direction VARCHAR(255) NOT NULL,
+    firstseen TIMESTAMP,
+    lastseen TIMESTAMP,
+    packets VARCHAR(255) NOT NULL,
+    bytes VARCHAR(255) NOT NULL,
+    protocol VARCHAR(255) NOT NULL,
+    tags VARCHAR(255) NOT NULL,
+    dayssince VARCHAR(255) NOT NULL
+);

@@ -42,7 +42,7 @@
                                 <div class="form-group base-margin-bottom">
                                     <div class="form-group__text">
                                         <input id="source-ip" name="source-ip" type="text" value="{{filter.sourceip}}">
-                                        <label for="source-ip">Show Traffic with Source:</label>
+                                        <label for="source-ip">Show Traffic with Source IP:</label>
                                     </div>
                                 </div>
                             </div>
@@ -52,7 +52,29 @@
                                 <div class="form-group base-margin-bottom">
                                     <div class="form-group__text">
                                         <input id="dest-ip" name="dest-ip" type="text" value="{{filter.destip}}">
-                                        <label for="dest-ip">Show Traffic with Destination:</label>
+                                        <label for="dest-ip">Show Traffic with Destination IP:</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-6">
+                                <!-- Since date/time -->
+                                <div class="form-group base-margin-bottom">
+                                    <div class="form-group__text">
+                                        <input id="source-name" name="source-name" type="text" value="{{filter.source}}">
+                                        <label for="source-name">Show Traffic with Source Name:</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <!-- Until date/time -->
+                                <div class="form-group base-margin-bottom">
+                                    <div class="form-group__text">
+                                        <input id="dest-name" name="dest-name" type="text" value="{{filter.dest}}">
+                                        <label for="dest-name">Show Traffic with Destination Name:</label>
                                     </div>
                                 </div>
                             </div>

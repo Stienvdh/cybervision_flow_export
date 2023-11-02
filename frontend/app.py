@@ -24,6 +24,7 @@ import cybervision
 from flask import send_file as flask_send_file
 #import merakiAPI
 from dnacentersdk import api
+import database
 
 # load all environment variables
 load_dotenv()
@@ -57,39 +58,21 @@ def index():
     global FILTER
     if request.method == "POST":
         filter = cybervision.Filter(
+            source_name=request.form.get("source-name"),
+            dest_name=request.form.get("dest-name"),
             source_ip=request.form.get("source-ip"),
             dest_ip=request.form.get("dest-ip"),
             from_date=request.form.get("from-date"),
             to_date=request.form.get("to-date")
         )
 
-        deadline = 0
+        deadline = 0   
 
         FILTER = filter
         print(f"Filter submitted: {filter.to_json()}")
 
         # Get flows
-        flows_raw = cybervision.get_all_flows(filter)
-        flows = []
-        for f in flows_raw:
-            tag_list = []
-            for t in f['tags']:
-                tag_list += [t['label']]
-            flows += [{
-                "source" : f['left']['label'],
-                "dest" : f['right']['label'],
-                "sourceport" : f['srcPort'],
-                "destport" : f['dstPort'],
-                "direction" : f['direction'],
-                "firstseen" : datetime.datetime.fromtimestamp(f['firstActivity']/1000).strftime('%m/%d/%Y, %H:%M:%S'),
-                "lastseen" : datetime.datetime.fromtimestamp(f['lastActivity']/1000).strftime('%m/%d/%Y, %H:%M:%S'),
-                "packets" : f['packetsCount'],
-                "bytes" : f['bytesCount'],
-                "protocol" : f['protocol'],
-                "tags" : ', '.join(tag_list),
-                "dayssince" : get_days_since(f['lastActivity']/1000)
-            }]
-
+        flows = database.get_flows(filter)
         writeJson('flows.json', flows)
 
         return redirect(f"/flows?page=0&deadline={deadline}")
