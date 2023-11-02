@@ -1,7 +1,7 @@
 # Cisco Cyber Vision Flow Exporter
 This prototype allows you to export Cyber Vision flows to an external PostgreSQL database. This way, you can limit the amount of flows to be stored on the Cyber Vision appliance and ensure high performance.
 
-![](frontend/IMAGES/workflow.png)
+![](/IMAGES/workflow.png)
 
 ## Contacts
 * Stien Vanderhallen (stienvan@cisco.com)
@@ -55,7 +55,7 @@ To access the app, navigate to localhost:8888 in your local browser.
 
 # Workflow
 
-![](frontend/IMAGES/usage.png)
+![](/IMAGES/usage.png)
 
 ### LICENSE
 
