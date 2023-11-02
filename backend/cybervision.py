@@ -60,7 +60,7 @@ def get_flows_since_yesterday():
     token = os.environ['CYBERVISION_TOKEN']
 
     to_date = f"{datetime.datetime.now().strftime('%s')}000"
-    from_date = f"{(datetime.datetime.now() - datetime.timedelta(hours=12)).strftime('%s')}000"
+    from_date = f"{(datetime.datetime.now() - datetime.timedelta(days=1)).strftime('%s')}000"
 
     url = f"https://{host}/api/3.0/flows?from={from_date}&to={to_date}"
 
