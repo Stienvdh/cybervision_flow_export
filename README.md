@@ -4,7 +4,7 @@ This prototype allows you to export Cyber Vision flows to an external PostgreSQL
 ![](frontend/IMAGES/workflow.png)
 
 ## Contacts
-* Stien Vanderhallen
+* Stien Vanderhallen (stienvan@cisco.com)
 
 ## Solution Components
 * Cyber Vision
@@ -13,76 +13,49 @@ This prototype allows you to export Cyber Vision flows to an external PostgreSQL
 
 ## Installation/Configuration
 
-The following commands are executed in the terminal.
+1. Clone this project
 
-1. Create and activate a virtual environment for the project:
-   
-        #WINDOWS:
-        $ py -3 -m venv cv_detector_venv
-        $ source cv_detector_venv/Scripts/activate
+```
+$ git clone https://github.com/Stienvdh/cybervision_flow_export.git
+```
 
-        #MAC:
-        $ python3 -m venv cv_detector_venv 
-        $ source cv_detector_venv/bin/activate
-        
-> For more information about virtual environments, please click [here](https://docs.python.org/3/tutorial/venv.html)
+2. Navigate to the frontend project
 
-2. Access the created virtual environment folder
+```
+$ cd frontend
+```
 
-        $ cd cv_detector_venv
+3. Fill out the appropriate parameters in `.env`
 
-3. Clone this repository
+4. Build and run the frontend container
 
-        $ git clone https://wwwin-github.cisco.com/gve/gve_devnet_cybervision_absent_traffic_detection
+```
+$ docker build . -t cybervision-flow-front
+$ docker run -p 8888:8888 cybervision-flow-front
+```
 
-4. Access the folder `gve_devnet_cybervision_absent_traffic_detection`
+5. Navigate to the backend project
 
-        $ cd gve_devnet_cybervision_absent_traffic_detection
+```
+$ cd ../backend
+```
 
-5. Install the dependencies:
+6. Fill out the appropriate parameters in `.env`
 
-        $ pip install -r requirements.txt
+7. Build and run the backend container
 
-6. Open the `.env` file and add the following environment variables:
-
-    - `CYBERVISION_HOST`: The IP address of your Cybervision instance
-    - `CYBERVISION_TOKEN`: Your Cybervision API token (this can be retrieved from the `Admin` submenu in your Cybervision console)
-    - `FILTER_TAG`: The key name for the Cybervision component tag you want to filter your traffic source and destination on.
-
+```
+$ docker build . -t cybervision-flow-back
+$ docker run cybervision-flow-back
+```
 
 ## Usage
-1. To launch the app, type the following command in your terminal:
-
-        $ python app.py
-
-2. To access the app, navigate in a browser to `localhost:5555`
+To access the app, navigate to localhost:8888 in your local browser.
 
 
 # Workflow
 
-1. On `localhost:5555`, you find the landing page of the prototype
-
-![](IMAGES/1image.png)
-
-2. Optionally, adjust the filters on the left-hand side to first select the source and/or destination of the traffic you want to see. After selecting a label, the corresponsing IP addresses will be auto-populated.
-
-![](IMAGES/2image.png)
-
-3. Optionally, adjust the filters on the left-hand side to then select the tags, protocol and time period for the traffic you want to see. Aditionally, select after what amount of days you deem absent traffic anomalous, to get it marked as such.
-
-![](IMAGES/3image.png)
-
-4. Submit your filter to start retrieving the corresponding Cybervision traffic flows.
-
-![](IMAGES/4image.png)
-
-5. On the right-hand side of the page, consult the flows and the amount of days it has been since it was seen.
-
-![](IMAGES/5image.png)
-
-6. Use the button below the flow table to navigate through all flows.
-
-![](IMAGES/6image.png)
+![](frontend/IMAGES/usage.png)
 
 ### LICENSE
 
