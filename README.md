@@ -13,6 +13,28 @@ This prototype allows you to export Cyber Vision flows to an external PostgreSQL
 
 ## Installation/Configuration
 
+0. In you PostgreSQL database, create a database called `cybervisionflows` and in that database, create the following table:
+
+```
+CREATE TABLE IF NOT EXISTS cybervisionflows(
+    id VARCHAR(255) NOT NULL PRIMARY KEY,
+    source VARCHAR(255) NOT NULL,
+    destination VARCHAR(255) NOT NULL,
+    sourceip VARCHAR(255) NOT NULL,
+    sourceport VARCHAR(255) NOT NULL,
+    destinationip VARCHAR(255) NOT NULL,
+    destinationport VARCHAR(255) NOT NULL,
+    direction VARCHAR(255) NOT NULL,
+    firstseen TIMESTAMP,
+    lastseen TIMESTAMP,
+    packets VARCHAR(255) NOT NULL,
+    bytes VARCHAR(255) NOT NULL,
+    protocol VARCHAR(255) NOT NULL,
+    tags VARCHAR(255) NOT NULL,
+    dayssince VARCHAR(255) NOT NULL
+);
+```
+
 1. Clone this project
 
 ```
@@ -40,8 +62,19 @@ $ docker run -p 8888:8888 cybervision-flow-front
 $ cd ../backend
 ```
 
-6. Fill out the appropriate parameters in `.env`
+6. Fill out the appropriate parameters in a `.env` file
 
+```
+CYBERVISION_HOST=your Cyber Vision host
+CYBERVISION_TOKEN=Your Cyber Vision API token
+FILTER_TAG=(can be left empty)
+PG_DATABASE=cybervisionflows
+PG_USERNAME=your PostgreSQL username
+PG_PASSWORD=your PostgreSQL password
+PG_PORT=your PostgreSQL port
+PG_HOST=your PostgreSQL host
+```
+ 
 7. Build and run the backend container
 
 ```
