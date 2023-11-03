@@ -69,7 +69,7 @@ def get_flows_since_yesterday():
         "x-token-id" : token
     }
 
-    flows = requests.get(url, headers=headers, verify=False).json()[:100]
+    flows = requests.get(url, headers=headers, verify=False).json()
 
     db_formatted_flows = []
     for f in flows:
