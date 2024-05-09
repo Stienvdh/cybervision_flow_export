@@ -1,1 +1,1 @@
-* 0 * * * python /main.py >> /logfile
+* 0 * * * /usr/local/bin/python /main.py >> /logfile
