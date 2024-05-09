@@ -13,7 +13,7 @@ This prototype allows you to export Cyber Vision flows to an external PostgreSQL
 
 ## Installation/Configuration
 
-0. In you PostgreSQL database, create a database called `cybervisionflows` and in that database, create the following table:
+0. In your PostgreSQL database, create a database called `cybervisionflows` and in that database, create the following table:
 
 ```
 CREATE TABLE IF NOT EXISTS cybervisionflows(

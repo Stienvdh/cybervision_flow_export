@@ -71,6 +71,8 @@ def get_flows_since_yesterday():
 
     flows = requests.get(url, headers=headers, verify=False).json()
 
+    print(f"BACKEND: Found {len(flows)} flows")
+
     db_formatted_flows = []
     for f in flows:
         tag_list = []

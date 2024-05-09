@@ -79,7 +79,7 @@ def index():
 
     try:
         #Page without error message and defined header links 
-        writeJson('components.json', cybervision.get_components())
+        writeJson('components.json', [])
         return render_template('home.html', filter=cybervision.Filter().to_json(), flows=[], deadline=0, label_list=getJson('components.json'))
     except Exception as e: 
         print(e)  
