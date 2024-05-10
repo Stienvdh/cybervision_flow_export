@@ -55,13 +55,13 @@ def get_ip_for_component(name):
     return '255.255.255.255'
 
 def get_flows_since_yesterday():
-    get_components()
-
     host = os.environ['CYBERVISION_HOST']
     token = os.environ['CYBERVISION_TOKEN']
 
     to_date = f"{datetime.datetime.now().strftime('%s')}000"
     from_date = f"{(datetime.datetime.now() - datetime.timedelta(days=1)).strftime('%s')}000"
+
+    get_components()
 
     url = f"https://{host}/api/3.0/flows?from={from_date}&to={to_date}"
 
