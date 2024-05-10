@@ -118,7 +118,7 @@
                             <tbody>
                                 {% if flows|length > 0 %}
                                     {% for f in flows %}
-                                    <tr {% if f.dayssince >= deadline and f.dayssince > 0 %} style="background-color:#FFB7B7" {% endif %}>
+                                    <tr>
                                         <td>{{f.source}}</td>
                                         <td>{{f.sourceip}}</td>
                                         <td>{{f.sourceport}}</td>

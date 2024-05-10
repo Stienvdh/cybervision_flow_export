@@ -30,6 +30,19 @@ def put_flows(flows):
         except:
             conn.commit()
 
+def put_flow(flow):
+    cursor = conn.cursor()
+
+    try:
+        cursor.execute(f"INSERT INTO cybervisionflows VALUES (\'{flow['id']}\', \
+                        \'{flow['source']}\', \'{flow['dest']}\', \'{flow['sourceip']}\', \'{flow['sourceport']}\', \
+                        \'{flow['destinationip']}\', \'{flow['destinationport']}\', \'{flow['direction']}\', \
+                        \'{flow['firstseen']}\', \'{flow['lastseen']}\', \'{flow['packets']}\', \
+                        \'{flow['bytes']}\', \'{flow['protocol']}\', \'{flow['tags']}\', \'{flow['dayssince']}\');")
+        conn.commit()
+    except:
+        conn.commit()
+
 def get_flows():
     cursor = conn.cursor()
 

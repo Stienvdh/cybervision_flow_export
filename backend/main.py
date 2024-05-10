@@ -10,8 +10,8 @@ def getJson(filepath):
 	return json_content
 
 def main_loop():
-    flows = cybervision.get_flows_since_yesterday()
-    database.put_flows(flows)
+    cybervision.get_flows_since_yesterday()
+
 
 if __name__ == "__main__":
     load_dotenv()

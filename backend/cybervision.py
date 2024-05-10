@@ -14,6 +14,7 @@ or implied.
 
 import requests, json, os, datetime
 from dotenv import load_dotenv
+import database
 
 #Read data from json file
 def getJson(filepath):
@@ -73,12 +74,11 @@ def get_flows_since_yesterday():
 
     print(f"BACKEND: Found {len(flows)} flows")
 
-    db_formatted_flows = []
     for f in flows:
         tag_list = []
         for t in f['tags']:
             tag_list += [t['label']]
-        db_formatted_flows += [
+        new_flow = \
             {
                 "id" : f["id"],
                 "source" : f['left']['label'],
@@ -96,10 +96,4 @@ def get_flows_since_yesterday():
                 "tags" : ', '.join(tag_list),
                 "dayssince" : get_days_since(f['lastActivity']/1000)
             }
-        ]
-
-    print(len(db_formatted_flows))
-
-    writeJson('flows.json', db_formatted_flows)
-
-    return db_formatted_flows
+        database.put_flow(new_flow)
